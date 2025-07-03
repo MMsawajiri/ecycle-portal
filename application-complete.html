@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>申込完了 - e.CYCLE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS変数 */
+        :root {
+            --primary-color: #4ECDC4;
+            --secondary-color: #45B7B8;
+            --accent-color: #26C0C7;
+            --light-color: #E8F8F7;
+            --text-color: #2C3E50;
+            --text-light: #7F8C8D;
+            --white: #FFFFFF;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --success-color: #27AE60;
+        }
+
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, var(--light-color), var(--white));
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ヘッダー */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* 進捗ステップ */
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--success-color);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .step-number {
+            background: var(--success-color);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* メインコンテンツ */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 成功アイコン */
+        .success-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .success-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--success-color), #2ECC71);
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .success-circle i {
+            font-size: 50px;
+            color: var(--white);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(39, 174, 96, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+            }
+        }
+
+        /* 完了メッセージ */
+        .complete-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .complete-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 16px;
+        }
+
+        .complete-subtitle {
+            font-size: 18px;
+            color: var(--text-color);
+            margin-bottom: 30px;
+        }
+
+        .application-number {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .application-number-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .application-number-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+
+        /* 次のステップ */
+        .next-steps {
+            background: #F8F9FA;
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .next-steps-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .steps-timeline {
+            position: relative;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-item::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: #E1E8ED;
+        }
+
+        .step-item:last-child::after {
+            display: none;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 16px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .step-description {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* メール送信確認 */
+        .email-notice {
+            background: #E8F4FD;
+            border: 1px solid #3498DB;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .email-notice-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #2980B9;
+            margin-bottom: 12px;
+        }
+
+        .email-notice-content {
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        /* アクションボタン */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid #E1E8ED;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* レスポンシブ（モバイルファースト対応） */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 0;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 8px;
+                padding: 0 16px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .progress-indicator {
+                font-size: 13px;
+            }
+
+            .step-number {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+
+            .main-container {
+                padding: 16px 12px;
+            }
+
+            .complete-container {
+                padding: 24px 16px;
+                border-radius: 8px;
+            }
+
+            .success-icon {
+                margin-bottom: 20px;
+            }
+
+            .success-circle {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 16px;
+            }
+
+            .success-circle i {
+                font-size: 40px;
+            }
+
+            .complete-title {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+
+            .complete-subtitle {
+                font-size: 15px;
+                line-height: 1.5;
+                margin-bottom: 24px;
+            }
+
+            .application-number {
+                padding: 16px;
+                margin: 24px 0;
+                border-radius: 8px;
+            }
+
+            .application-number-label {
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+
+            .application-number-value {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+
+            .email-notice {
+                padding: 16px;
+                margin: 24px 0;
+                border-radius: 8px;
+            }
+
+            .email-notice-title {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .email-notice-content {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .next-steps {
+                padding: 20px 16px;
+                margin: 24px 0;
+                border-radius: 8px;
+            }
+
+            .next-steps-title {
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .step-item {
+                gap: 12px;
+                margin-bottom: 16px;
+            }
+
+            .step-item::after {
+                left: 16px;
+                top: 36px;
+            }
+
+            .step-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .step-title {
+                font-size: 15px;
+                margin-bottom: 2px;
+            }
+
+            .step-description {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .action-buttons {
+                gap: 12px;
+                margin-top: 32px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 16px 24px;
+                font-size: 16px;
+                border-radius: 6px;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .main-container {
+                padding: 24px 20px;
+            }
+
+            .complete-container {
+                padding: 40px 28px;
+            }
+
+            .complete-title {
+                font-size: 28px;
+            }
+
+            .complete-subtitle {
+                font-size: 17px;
+            }
+
+            .success-circle {
+                width: 90px;
+                height: 90px;
+            }
+
+            .success-circle i {
+                font-size: 45px;
+            }
+
+            .next-steps {
+                padding: 24px 20px;
+            }
+
+            .action-buttons {
+                flex-direction: row;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                flex: 1;
+                max-width: 200px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .main-container {
+                padding: 40px 24px;
+            }
+
+            .complete-container {
+                padding: 50px 36px;
+            }
+
+            .next-steps {
+                padding: 30px 24px;
+            }
+        }
+
+        /* タッチデバイス向け調整 */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-primary:hover,
+            .btn-secondary:hover {
+                transform: none;
+            }
+
+            .btn-primary:active,
+            .btn-secondary:active {
+                transform: scale(0.98);
+            }
+
+            /* アニメーションを控えめに */
+            .success-circle {
+                animation: pulse 3s ease-in-out infinite;
+            }
+        }
+
+        /* 横向き表示対応 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .main-container {
+                padding: 16px 12px;
+            }
+
+            .complete-container {
+                padding: 20px 16px;
+            }
+
+            .success-icon {
+                margin-bottom: 16px;
+            }
+
+            .success-circle {
+                width: 60px;
+                height: 60px;
+            }
+
+            .success-circle i {
+                font-size: 30px;
+            }
+
+            .complete-title {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .complete-subtitle {
+                font-size: 14px;
+                margin-bottom: 16px;
+            }
+
+            .next-steps {
+                padding: 16px;
+                margin: 16px 0;
+            }
+
+            .next-steps-title {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+
+            .action-buttons {
+                margin-top: 20px;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">e.CYCLE</div>
+            <div class="progress-indicator">
+                <div class="step-number">
+                    <i class="fas fa-check"></i>
+                </div>
+                <span>申込完了 (3/3)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main-container">
+        <div class="complete-container">
+            <!-- 成功アイコン -->
+            <div class="success-icon">
+                <div class="success-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+
+            <!-- 完了メッセージ -->
+            <h1 class="complete-title">お申込み完了</h1>
+            <p class="complete-subtitle">
+                e.CYCLEへのお申込みありがとうございます。<br>
+                お申込み内容を確認いたします。
+            </p>
+
+            <!-- 申込番号 -->
+            <div class="application-number">
+                <div class="application-number-label">申込受付番号</div>
+                <div class="application-number-value" id="applicationNumber">EC2025-0703-001</div>
+            </div>
+
+            <!-- メール送信確認 -->
+            <div class="email-notice">
+                <div class="email-notice-title">
+                    <i class="fas fa-envelope"></i>
+                    <span>確認メール送信完了</span>
+                </div>
+                <div class="email-notice-content">
+                    ご登録いただいたメールアドレスに確認メールをお送りしました。<br>
+                    メールが届かない場合は、迷惑メールフォルダもご確認ください。
+                </div>
+            </div>
+
+            <!-- 今後の流れ -->
+            <div class="next-steps">
+                <h3 class="next-steps-title">今後の流れ</h3>
+                <div class="steps-timeline">
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">審査・確認</div>
+                            <div class="step-description">お申込み内容の確認と審査を行います（1-2営業日）</div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">ログイン情報送付</div>
+                            <div class="step-description">マイページのログイン情報をメールでお送りします</div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">切替手続き</div>
+                            <div class="step-description">現在の電力会社からの切替手続きを開始します（2-4週間）</div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">供給開始</div>
+                            <div class="step-description">e.CYCLEからの電力供給を開始いたします</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アクションボタン -->
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="goToPortalLogin()">
+                    <i class="fas fa-sign-in-alt"></i>
+                    マイページにログイン
+                </button>
+                <button class="btn-secondary" onclick="downloadPDF()">
+                    <i class="fas fa-download"></i>
+                    申込内容をPDFで保存
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ページ読み込み時の処理
+        document.addEventListener('DOMContentLoaded', function() {
+            generateApplicationNumber();
+            sendConfirmationEmail();
+            
+            // セッションストレージをクリア（申込完了のため）
+            sessionStorage.removeItem('applicationData');
+        });
+
+        // 申込番号の生成
+        function generateApplicationNumber() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const randomNum = String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+            
+            const applicationNumber = `EC${year}-${month}${day}-${randomNum}`;
+            document.getElementById('applicationNumber').textContent = applicationNumber;
+            
+            // ローカルストレージに保存（後で参照用）
+            localStorage.setItem('lastApplicationNumber', applicationNumber);
+        }
+
+        // 確認メール送信（ダミー）
+        function sendConfirmationEmail() {
+            // 実際の実装では、ここでサーバーにメール送信リクエストを送る
+            console.log('確認メール送信完了');
+            
+            // 3秒後にポータルログインボタンを強調表示
+            setTimeout(() => {
+                const loginBtn = document.querySelector('.btn-primary');
+                loginBtn.style.animation = 'pulse 1s ease-in-out 3';
+            }, 3000);
+        }
+
+        // マイページログインへ遷移
+        function goToPortalLogin() {
+            // 既存のポータルログイン画面に遷移
+            // 実際の実装では、適切なURLに変更
+            window.location.href = 'index.html';
+        }
+
+        // PDF ダウンロード（ダミー）
+        function downloadPDF() {
+            alert('申込内容のPDF作成機能は準備中です。\n確認メールに添付されているPDFをご利用ください。');
+        }
+
+        // 申込データがない場合の警告
+        if (!localStorage.getItem('lastApplicationNumber') && !sessionStorage.getItem('applicationData')) {
+            console.warn('申込データが見つかりません');
+        }
+    </script>
+</body>
+</html>

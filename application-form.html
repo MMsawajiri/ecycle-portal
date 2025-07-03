@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e.CYCLEお申込み - 地域の再エネでお得に電気を使おう</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS変数 */
+        :root {
+            --primary-color: #4ECDC4;
+            --secondary-color: #45B7B8;
+            --accent-color: #26C0C7;
+            --light-color: #E8F8F7;
+            --text-color: #2C3E50;
+            --text-light: #7F8C8D;
+            --white: #FFFFFF;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ヘッダー */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* 進捗ステップ */
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* メインコンテンツ */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        /* フォームスタイル */
+        .application-form {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+        }
+
+        .form-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E1E8ED;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+        }
+
+        /* プラン選択 */
+        .plan-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .plan-option {
+            cursor: pointer;
+        }
+
+        .plan-option input {
+            display: none;
+        }
+
+        .plan-card {
+            border: 2px solid #E1E8ED;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .plan-option input:checked + .plan-card {
+            border-color: var(--primary-color);
+            background: rgba(78, 205, 196, 0.05);
+        }
+
+        .plan-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .plan-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .plan-price {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* チェックボックス */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E1E8ED;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            color: var(--white);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkbox-container a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .checkbox-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* ボタン */
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid #E1E8ED;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* エラーメッセージ */
+        .error-message {
+            color: #E74C3C;
+            font-size: 12px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .error {
+            border-color: #E74C3C !important;
+        }
+
+        /* レスポンシブ（モバイルファースト対応） */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 0;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 8px;
+                padding: 0 16px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .progress-indicator {
+                font-size: 13px;
+            }
+
+            .step-number {
+                width: 20px;
+                height: 20px;
+                font-size: 11px;
+            }
+
+            .main-container {
+                padding: 16px 12px;
+            }
+
+            .page-title {
+                margin-bottom: 24px;
+            }
+
+            .page-title h1 {
+                font-size: 22px;
+                line-height: 1.3;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+            }
+
+            .application-form {
+                padding: 20px 16px;
+                border-radius: 8px;
+            }
+
+            .form-section {
+                margin-bottom: 32px;
+            }
+
+            .form-section h3 {
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 14px 16px;
+                font-size: 16px;
+                border-radius: 6px;
+                /* iOS Safari のズームを防ぐため16px以上 */
+            }
+
+            .plan-options {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .plan-card {
+                padding: 16px;
+                border-radius: 8px;
+            }
+
+            .plan-card h4 {
+                font-size: 16px;
+            }
+
+            .plan-card p {
+                font-size: 13px;
+            }
+
+            .plan-price {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .checkbox-container {
+                font-size: 13px;
+                line-height: 1.4;
+                gap: 10px;
+            }
+
+            .checkmark {
+                width: 18px;
+                height: 18px;
+                margin-top: 1px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 12px;
+                margin-top: 32px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 16px 24px;
+                font-size: 16px;
+                border-radius: 6px;
+                min-height: 48px; /* タッチしやすいサイズ */
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .main-container {
+                padding: 24px 20px;
+            }
+
+            .application-form {
+                padding: 32px 28px;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .plan-options {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .main-container {
+                padding: 40px 24px;
+            }
+
+            .application-form {
+                padding: 40px 36px;
+            }
+        }
+
+        /* タッチデバイス向け調整 */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-primary:hover,
+            .btn-secondary:hover {
+                transform: none;
+            }
+
+            .btn-primary:active {
+                transform: scale(0.98);
+            }
+
+            .plan-card {
+                transition: transform 0.1s ease;
+            }
+
+            .plan-option:active .plan-card {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">e.CYCLE</div>
+            <div class="progress-indicator">
+                <div class="step-number">1</div>
+                <span>情報入力 (1/3)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main-container">
+        <div class="page-title">
+            <h1>e.CYCLEお申込み</h1>
+            <p class="page-subtitle">地域の再エネでお得に電気を使おう</p>
+        </div>
+
+        <form id="application-form" class="application-form">
+            <!-- お客様情報 -->
+            <section class="form-section">
+                <h3>お客様情報</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" name="lastName" placeholder="姓" required>
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="firstName" placeholder="名" required>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" name="lastNameKana" placeholder="セイ（カタカナ）" required>
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="firstNameKana" placeholder="メイ（カタカナ）" required>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 住所情報 -->
+            <section class="form-section">
+                <h3>ご住所</h3>
+                <div class="form-group">
+                    <input type="text" name="postalCode" placeholder="郵便番号（123-4567）" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <select name="prefecture" required>
+                        <option value="">都道府県を選択</option>
+                        <option value="hokkaido">北海道</option>
+                        <option value="aomori">青森県</option>
+                        <option value="iwate">岩手県</option>
+                        <option value="miyagi">宮城県</option>
+                        <option value="akita">秋田県</option>
+                        <option value="yamagata">山形県</option>
+                        <option value="fukushima">福島県</option>
+                        <option value="ibaraki">茨城県</option>
+                        <option value="tochigi">栃木県</option>
+                        <option value="gunma">群馬県</option>
+                        <option value="saitama">埼玉県</option>
+                        <option value="chiba">千葉県</option>
+                        <option value="tokyo">東京都</option>
+                        <option value="kanagawa">神奈川県</option>
+                        <option value="niigata">新潟県</option>
+                        <option value="toyama">富山県</option>
+                        <option value="ishikawa">石川県</option>
+                        <option value="fukui">福井県</option>
+                        <option value="yamanashi">山梨県</option>
+                        <option value="nagano">長野県</option>
+                        <option value="gifu">岐阜県</option>
+                        <option value="shizuoka">静岡県</option>
+                        <option value="aichi">愛知県</option>
+                        <option value="mie">三重県</option>
+                        <option value="shiga">滋賀県</option>
+                        <option value="kyoto">京都府</option>
+                        <option value="osaka">大阪府</option>
+                        <option value="hyogo">兵庫県</option>
+                        <option value="nara">奈良県</option>
+                        <option value="wakayama">和歌山県</option>
+                        <option value="tottori">鳥取県</option>
+                        <option value="shimane">島根県</option>
+                        <option value="okayama">岡山県</option>
+                        <option value="hiroshima">広島県</option>
+                        <option value="yamaguchi">山口県</option>
+                        <option value="tokushima">徳島県</option>
+                        <option value="kagawa">香川県</option>
+                        <option value="ehime">愛媛県</option>
+                        <option value="kochi">高知県</option>
+                        <option value="fukuoka">福岡県</option>
+                        <option value="saga">佐賀県</option>
+                        <option value="nagasaki">長崎県</option>
+                        <option value="kumamoto">熊本県</option>
+                        <option value="oita">大分県</option>
+                        <option value="miyazaki">宮崎県</option>
+                        <option value="kagoshima">鹿児島県</option>
+                        <option value="okinawa">沖縄県</option>
+                    </select>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="city" placeholder="市区町村" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="address" placeholder="番地・建物名・部屋番号" required>
+                    <span class="error-message"></span>
+                </div>
+            </section>
+
+            <!-- 連絡先情報 -->
+            <section class="form-section">
+                <h3>連絡先</h3>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="メールアドレス" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="emailConfirm" placeholder="メールアドレス（確認用）" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="電話番号（090-1234-5678）" required>
+                    <span class="error-message"></span>
+                </div>
+            </section>
+
+            <!-- 現在の電力会社情報 -->
+            <section class="form-section">
+                <h3>現在ご契約の電力会社</h3>
+                <div class="form-group">
+                    <select name="currentProvider" required>
+                        <option value="">選択してください</option>
+                        <option value="tepco">東京電力エナジーパートナー</option>
+                        <option value="kepco">関西電力</option>
+                        <option value="chubu">中部電力ミライズ</option>
+                        <option value="tohoku">東北電力</option>
+                        <option value="kyushu">九州電力</option>
+                        <option value="chugoku">中国電力</option>
+                        <option value="shikoku">四国電力</option>
+                        <option value="hokuden">北海道電力</option>
+                        <option value="hokuriku">北陸電力</option>
+                        <option value="okinawa">沖縄電力</option>
+                        <option value="other">その他</option>
+                    </select>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="customerNumber" placeholder="お客様番号（検針票に記載）">
+                    <span class="error-message"></span>
+                </div>
+            </section>
+
+            <!-- プラン選択 -->
+            <section class="form-section">
+                <h3>ご希望プラン</h3>
+                <div class="plan-options">
+                    <label class="plan-option">
+                        <input type="radio" name="plan" value="standard" checked>
+                        <div class="plan-card">
+                            <h4>標準プラン</h4>
+                            <p>安定した料金でお得に</p>
+                            <span class="plan-price">年間約12,000円お得</span>
+                        </div>
+                    </label>
+                    <label class="plan-option">
+                        <input type="radio" name="plan" value="market">
+                        <div class="plan-card">
+                            <h4>市場連動プラン</h4>
+                            <p>市場価格に連動</p>
+                            <span class="plan-price">年間約8,000円お得</span>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- 利用規約 -->
+            <section class="form-section">
+                <label class="checkbox-container">
+                    <input type="checkbox" name="terms" required>
+                    <span class="checkmark"></span>
+                    <span><a href="#" target="_blank">利用規約</a>および<a href="#" target="_blank">プライバシーポリシー</a>に同意します</span>
+                </label>
+            </section>
+
+            <!-- ボタン -->
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="history.back()">戻る</button>
+                <button type="submit" class="btn-primary">確認画面へ</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // フォームバリデーション
+        document.getElementById('application-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // フォームデータを収集してセッションストレージに保存
+                const formData = new FormData(this);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+                
+                // データをセッションストレージに保存
+                sessionStorage.setItem('applicationData', JSON.stringify(data));
+                
+                // 確認画面に遷移
+                window.location.href = 'application-confirm.html';
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            const form = document.getElementById('application-form');
+            
+            // 全ての必須フィールドをチェック
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                clearError(field);
+                if (!field.value.trim()) {
+                    showError(field, 'この項目は必須です');
+                    isValid = false;
+                }
+            });
+            
+            // カタカナ入力チェック
+            const kanaFields = form.querySelectorAll('[name="lastNameKana"], [name="firstNameKana"]');
+            kanaFields.forEach(field => {
+                if (field.value && !/^[\u30A0-\u30FF]+$/.test(field.value)) {
+                    showError(field, 'カタカナで入力してください');
+                    isValid = false;
+                }
+            });
+            
+            // メールアドレス確認
+            const email = form.querySelector('[name="email"]');
+            const emailConfirm = form.querySelector('[name="emailConfirm"]');
+            if (email.value !== emailConfirm.value) {
+                showError(emailConfirm, 'メールアドレスが一致しません');
+                isValid = false;
+            }
+            
+            // 郵便番号形式チェック
+            const postalCode = form.querySelector('[name="postalCode"]');
+            if (postalCode.value && !/^\d{3}-\d{4}$/.test(postalCode.value)) {
+                showError(postalCode, '正しい郵便番号の形式で入力してください（例：123-4567）');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function showError(field, message) {
+            field.classList.add('error');
+            const errorElement = field.parentElement.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+        }
+
+        function clearError(field) {
+            field.classList.remove('error');
+            const errorElement = field.parentElement.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+        }
+
+        // 郵便番号の自動フォーマット
+        document.querySelector('[name="postalCode"]').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            if (value.length > 3) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 7);
+            }
+            e.target.value = value;
+        });
+
+        // 電話番号の自動フォーマット
+        document.querySelector('[name="phone"]').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            if (value.length > 3 && value.length <= 7) {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            } else if (value.length > 7) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
