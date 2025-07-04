@@ -1766,13 +1766,14 @@ a:focus {
     position: fixed;
     bottom: 0;
     left: 0;
-    right: 0;
-    background-color: var(--white);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background: var(--white);
+    border-top: 1px solid #E1E8ED;
     display: flex;
     justify-content: space-around;
-    padding: 5px 0;
-    z-index: 100;
+    padding: 12px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
 .nav-item {
@@ -1870,7 +1871,7 @@ a:focus {
     }
 }
 
-/* デスクトップ */
+/* PC表示時の調整 */
 @media (min-width: 769px) {
     .header-content,
     .main-content {
@@ -1878,11 +1879,26 @@ a:focus {
     }
     
     .bottom-nav {
-        max-width: 768px;
-        margin: 0 auto;
+        position: fixed;
+        bottom: 0;
         left: 50%;
         transform: translateX(-50%);
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
         border-radius: 12px 12px 0 0;
+    }
+    
+    /* メインコンテンツのパディング調整 */
+    .main-content {
+        padding-bottom: 80px;
+    }
+}
+
+/* タブレット表示時 */
+@media (min-width: 481px) and (max-width: 768px) {
+    .bottom-nav {
+        padding: 16px 0;
     }
 }
 
@@ -3659,5 +3675,494 @@ a:focus {
     
     .savings-amount {
         font-size: 28px;
+    }
+}
+
+/* 登録内容確認画面の改善 */
+.registration-header-nav {
+    margin-bottom: 20px;
+}
+
+.back-to-home-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(78, 205, 196, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: var(--primary-color);
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.back-to-home-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.registration-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.registration-subtitle {
+    color: var(--text-light);
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.application-status {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.status-message {
+    font-size: 16px;
+    color: var(--text-light);
+}
+
+.no-application {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.no-app-icon {
+    font-size: 48px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.no-application h3 {
+    font-size: 20px;
+    color: var(--text-color);
+    margin-bottom: 16px;
+}
+
+.no-application p {
+    color: var(--text-light);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+/* 年間節約額のハイライト表示 */
+.plan-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #E1E8ED;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--white);
+    border: none;
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.tab-btn:hover:not(.active) {
+    background: var(--light-color);
+}
+
+.annual-savings-highlight {
+    margin: 20px 0;
+}
+
+.savings-container {
+    background: linear-gradient(135deg, #4ECDC4, #45B7B8);
+    border-radius: 16px;
+    padding: 24px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(78, 205, 196, 0.3);
+}
+
+.savings-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.savings-icon {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.8;
+}
+
+.savings-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.savings-amount {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.savings-amount .currency {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.savings-amount .amount {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.savings-description {
+    font-size: 14px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.savings-badge {
+    position: absolute;
+    top: 16px;
+    right: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+    .savings-container {
+        padding: 20px;
+    }
+    
+    .savings-amount .amount {
+        font-size: 28px;
+    }
+    
+    .savings-badge {
+        top: 12px;
+        right: 16px;
+    }
+    
+    .savings-icon {
+        display: none;
+    }
+}
+
+/* 折りたたみセクションのスタイル */
+.contract-details-section,
+.pricing-details-section {
+    margin: 16px 0;
+    border: 1px solid #E1E8ED;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.contract-header,
+.pricing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--light-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.contract-header:hover,
+.pricing-header:hover {
+    background: #ddf2f1;
+}
+
+.contract-title,
+.pricing-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+.contract-content,
+.pricing-content {
+    padding: 16px;
+    background: var(--white);
+}
+
+.contract-table,
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.contract-table td,
+.pricing-table td,
+.pricing-table th {
+    padding: 8px 12px;
+    border-bottom: 1px solid #F0F3F7;
+    text-align: left;
+}
+
+.contract-table td:first-child,
+.pricing-table th:first-child,
+.pricing-table td:first-child {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.contract-table td:last-child,
+.pricing-table td:last-child {
+    color: var(--text-light);
+}
+
+.pricing-table th {
+    background: var(--light-color);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+@media (max-width: 480px) {
+    .contract-header,
+    .pricing-header {
+        padding: 12px;
+    }
+    
+    .contract-title,
+    .pricing-title {
+        font-size: 14px;
+    }
+    
+    .contract-content,
+    .pricing-content {
+        padding: 12px;
+    }
+    
+    .contract-table td,
+    .pricing-table td,
+    .pricing-table th {
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+}
+
+/* 申込み確認画面のスタイル */
+.application-confirm-view {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.confirm-notice {
+    background: #E8F4FD;
+    border: 1px solid #3498DB;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.confirm-notice i {
+    color: #2980B9;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.confirm-notice span {
+    color: var(--text-color);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.confirm-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.confirm-section {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.confirm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--light-color);
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.confirm-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.edit-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.confirm-content {
+    padding: 20px;
+}
+
+.confirm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F3F7;
+}
+
+.confirm-row:last-child {
+    border-bottom: none;
+}
+
+.confirm-label {
+    font-weight: 500;
+    color: var(--text-light);
+    min-width: 120px;
+    font-size: 14px;
+}
+
+.confirm-value {
+    color: var(--text-color);
+    text-align: right;
+    flex: 1;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+.confirm-value.highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.application-submit {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 16px;
+    border-radius: 8px;
+    min-width: 200px;
+}
+
+@media (max-width: 480px) {
+    .confirm-notice {
+        padding: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .confirm-notice span {
+        font-size: 13px;
+    }
+    
+    .confirm-header {
+        padding: 12px 16px;
+    }
+    
+    .confirm-title {
+        font-size: 16px;
+    }
+    
+    .edit-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .confirm-content {
+        padding: 16px;
+    }
+    
+    .confirm-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 10px 0;
+    }
+    
+    .confirm-label {
+        min-width: auto;
+        font-size: 13px;
+    }
+    
+    .confirm-value {
+        text-align: left;
+        font-size: 14px;
+    }
+    
+    .confirm-value.highlight {
+        font-size: 15px;
+    }
+    
+    .btn-large {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 15px;
     }
 }

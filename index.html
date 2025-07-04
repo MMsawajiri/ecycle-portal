@@ -110,154 +110,225 @@
         </div>
     </div>
 
+    <!-- 契約内容確認セクション -->
+    <section id="contract-confirmation" class="section" style="display: none;">
+        <h2 class="section-header">契約内容確認</h2>
+        <div class="contract-container">
+            <!-- 重要事項説明書 -->
+            <div class="important-notice">
+                <div class="notice-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>重要事項説明書</span>
+                </div>
+                <div class="notice-content">
+                    <p>電力供給契約を締結する前に、以下の重要事項について必ずご確認ください。</p>
+                </div>
+            </div>
+
+            <!-- 契約条件詳細 -->
+            <div class="contract-section">
+                <h3 class="section-title">契約条件詳細</h3>
+                <div class="contract-details">
+                    <div class="detail-row">
+                        <div class="detail-label">電力プラン</div>
+                        <div class="detail-value" id="selectedPlan">標準プラン</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">契約期間</div>
+                        <div class="detail-value">2年間（自動更新）</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">基本料金</div>
+                        <div class="detail-value">月額 1,200円</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">従量料金</div>
+                        <div class="detail-value">23.00円〜32.00円/kWh（段階制）</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">解約事務手数料</div>
+                        <div class="detail-value">契約期間内解約時 9,000円</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">支払方法</div>
+                        <div class="detail-value">クレジットカード・口座振替</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">明細書</div>
+                        <div class="detail-value">WEB明細のみ</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 利用規約 -->
+            <div class="terms-section">
+                <h3 class="section-title">利用規約</h3>
+                <div class="terms-box">
+                    <div class="terms-content">
+                        <h3>第1条（目的）</h3>
+                        <p>本規約は、株式会社e.CYCLE（以下「当社」といいます）が提供する電力供給サービス（以下「本サービス」といいます）の利用条件を定めるものです。</p>
+                        
+                        <h3>第2条（サービス内容）</h3>
+                        <p>当社は、お客様に対して電力供給サービスを提供します。サービスの詳細は別途定める料金表および供給条件書によります。</p>
+                        
+                        <h3>第3条（契約期間）</h3>
+                        <p>本契約の期間は、電力供給開始日から2年間とし、期間満了の1ヶ月前までに解約の申し出がない場合は、同一条件で1年間自動更新されます。</p>
+                        
+                        <h3>第4条（料金およびお支払い）</h3>
+                        <p>電力料金は、基本料金および電力量料金、燃料費調整額、再生可能エネルギー発電促進賦課金等の合計額とします。毎月末日締めで翌月末日にお支払いいただきます。</p>
+                        
+                        <h3>第5条（解約）</h3>
+                        <p>契約期間内に解約される場合、解約事務手数料として9,000円を申し受けます。ただし、引越し等やむを得ない事情による解約の場合はこの限りではありません。</p>
+                        
+                        <h3>第6条（免責事項）</h3>
+                        <p>天災、事変、停電設備の故障、法令の制定改廃、その他当社の責に帰さない事由により本サービスが中断した場合、当社は責任を負いません。</p>
+                    </div>
+                </div>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <span class="checkmark"></span>
+                    <span>利用規約に同意します</span>
+                </label>
+            </div>
+
+            <!-- 重要事項説明書 -->
+            <div class="terms-section">
+                <h3 class="section-title">重要事項説明書</h3>
+                <div class="terms-box">
+                    <div class="terms-content">
+                        <h3>1. 電力供給条件</h3>
+                        <p>当社は、電気事業法および関連法令に基づき、一般送配電事業者の供給設備を使用して電力を供給します。</p>
+                        
+                        <h3>2. クーリングオフについて</h3>
+                        <p>本契約は、電気事業法第2条の13に定める小売電気事業に係る契約であり、特定商取引法の適用はありません。ただし、電気事業法に基づく書面交付後8日間は、お客様から契約の解除を行うことができます。</p>
+                        
+                        <h3>3. 個人情報の取扱い</h3>
+                        <p>当社は、お客様の個人情報を適切に管理し、電力供給業務の遂行およびこれに付随する業務以外には利用いたしません。</p>
+                        
+                        <h3>4. 供給停止について</h3>
+                        <p>料金のお支払いが遅延した場合、または本契約に違反した場合、一般送配電事業者による電力供給の停止が行われる場合があります。</p>
+                        
+                        <h3>5. 契約の変更・解約</h3>
+                        <p>契約内容の変更や解約をご希望の場合は、お客様サポートセンターまでご連絡ください。解約時は切替日の7営業日前までにお申し出ください。</p>
+                        
+                        <h3>6. お問い合わせ先</h3>
+                        <p>株式会社e.CYCLE お客様サポートセンター<br>
+                        電話：0120-123-456（平日9:00-18:00）<br>
+                        メール：support@ecycle.jp</p>
+                    </div>
+                </div>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="agreeImportant" required>
+                    <span class="checkmark"></span>
+                    <span>重要事項説明書の内容を理解し、同意します</span>
+                </label>
+            </div>
+
+            <!-- 最終確認 -->
+            <div class="final-confirmation">
+                <div class="confirmation-title">最終確認</div>
+                <div class="confirmation-text">
+                    上記の利用規約および重要事項説明書の内容をご確認いただき、<br>
+                    e.CYCLEとの電力供給契約を締結することに同意いただけますか？
+                </div>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="finalAgreement" required>
+                    <span class="checkmark"></span>
+                    <span><strong>はい、契約を締結することに同意します</strong></span>
+                </label>
+            </div>
+
+            <!-- ボタン -->
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="showSection('simulation')">修正する</button>
+                <button type="button" class="btn-primary-gradient" id="proceedButton" onclick="proceedToPayment()" disabled>支払情報設定へ</button>
+            </div>
+        </div>
+    </section>
+
     <!-- 登録内容確認セクション -->
     <section id="registration" class="section">
         <h2 class="section-header">登録内容確認</h2>
         <div class="registration-container">
-            
-            <!-- 進捗ステップ -->
-            <div class="progress-steps">
-                <div class="step completed">
-                    <div class="step-circle">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <span class="step-label">情報入力</span>
-                </div>
-                <div class="step current">
-                    <div class="step-circle">2</div>
-                    <span class="step-label">内容確認</span>
-                </div>
-                <div class="step">
-                    <div class="step-circle">3</div>
-                    <span class="step-label">支払設定</span>
-                </div>
-                <div class="step">
-                    <div class="step-circle">4</div>
-                    <span class="step-label">完了</span>
-                </div>
-            </div>
-            
-            <!-- 個人情報セクション -->
-            <div class="registration-section">
-                <h3 class="section-title">
-                    <i class="fas fa-user"></i>
-                    お客様情報
-                </h3>
-                <div class="info-card">
-                    <div class="info-row">
-                        <span class="info-label">お名前</span>
-                        <span class="info-value" id="reg-name">田中 太郎</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">フリガナ</span>
-                        <span class="info-value" id="reg-name-kana">タナカ タロウ</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">郵便番号</span>
-                        <span class="info-value" id="reg-postal">150-0001</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">ご住所</span>
-                        <span class="info-value" id="reg-address">東京都渋谷区神宮前1-1-1</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">メールアドレス</span>
-                        <span class="info-value" id="reg-email">demo@ecycle.jp</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">電話番号</span>
-                        <span class="info-value" id="reg-phone">03-1234-5678</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 契約情報セクション -->
-            <div class="registration-section">
-                <h3 class="section-title">
-                    <i class="fas fa-file-contract"></i>
-                    ご契約情報
-                </h3>
-                <div class="info-card">
-                    <div class="info-row">
-                        <span class="info-label">選択プラン</span>
-                        <span class="info-value">標準プラン</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">基本料金</span>
-                        <span class="info-value">¥1,200/月</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">従量料金</span>
-                        <span class="info-value">¥28.00/kWh</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">供給開始予定日</span>
-                        <span class="info-value">2025年8月1日</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">申込受付番号</span>
-                        <span class="info-value highlight">EC2025-0703-001</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 手続き状況セクション -->
-            <div class="registration-section">
-                <h3 class="section-title">
-                    <i class="fas fa-tasks"></i>
-                    お手続き状況
-                </h3>
-                <div class="status-timeline">
-                    <div class="timeline-item completed">
-                        <div class="timeline-icon">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h4>お申込み受付</h4>
-                            <p>2025年7月3日 14:30</p>
-                            <span class="status-badge completed">完了</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item in-progress">
-                        <div class="timeline-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h4>お支払い情報設定</h4>
-                            <p>クレジットカード情報のご登録をお願いします</p>
-                            <span class="status-badge in-progress">手続き中</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item pending">
-                        <div class="timeline-icon">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h4>切替手続き</h4>
-                            <p>現在の電力会社への切替連絡</p>
-                            <span class="status-badge pending">待機中</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item pending">
-                        <div class="timeline-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h4>供給開始</h4>
-                            <p>e.CYCLEからの電力供給開始</p>
-                            <span class="status-badge pending">待機中</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- アクションボタン -->
-            <div class="registration-actions">
-                <button class="btn-secondary" onclick="backToLogin()">
-                    後で設定する
+            <div class="registration-header-nav">
+                <button class="back-to-home-btn" onclick="showSection('home')" title="ホームに戻る">
+                    <i class="fas fa-home"></i>
+                    <span>TOP</span>
                 </button>
-                <button class="btn-primary-gradient" onclick="showPaymentScreen()">
-                    お支払い情報を設定
+            </div>
+            <h1 class="registration-title">登録内容確認</h1>
+            <p class="registration-subtitle">お申込み情報とお手続き状況をご確認いただけます</p>
+        
+            <!-- 申込状況表示 -->
+            <div class="application-status" id="application-status">
+                <div class="status-message" id="status-message">
+                    申込情報を確認中...
+                </div>
+            </div>
+            
+            <!-- 登録情報表示エリア -->
+            <div class="registration-info" id="registration-info" style="display: none;">
+                <!-- 個人情報セクション -->
+                <div class="registration-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-user"></i>
+                        お客様情報
+                    </h3>
+                    <div class="info-card">
+                        <div class="info-row">
+                            <span class="info-label">お名前</span>
+                            <span class="info-value" id="reg-fullname">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">郵便番号</span>
+                            <span class="info-value" id="reg-postal">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">ご住所</span>
+                            <span class="info-value" id="reg-address">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">メールアドレス</span>
+                            <span class="info-value" id="reg-email">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">電話番号</span>
+                            <span class="info-value" id="reg-phone">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 契約情報セクション -->
+                <div class="registration-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-file-contract"></i>
+                        ご契約情報
+                    </h3>
+                    <div class="info-card">
+                        <div class="info-row">
+                            <span class="info-label">選択プラン</span>
+                            <span class="info-value" id="reg-plan">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">申込受付番号</span>
+                            <span class="info-value highlight" id="reg-application-number">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 未申込の場合の案内 -->
+            <div class="no-application" id="no-application" style="display: none;">
+                <div class="no-app-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>申込情報がありません</h3>
+                <p>まだお申込みを完了されていません。<br>シミュレーションからお申込みください。</p>
+                <button class="btn-primary-gradient" onclick="showSection('simulation')">
+                    シミュレーションを開始
                 </button>
             </div>
         </div>
@@ -469,6 +540,31 @@
 
             <!-- 結果表示エリア -->
             <div class="simulation-results">
+                <!-- タブ切り替え -->
+                <div class="plan-tabs">
+                    <button class="tab-btn active" data-plan="standard">標準プラン</button>
+                    <button class="tab-btn" data-plan="market">市場連動プラン</button>
+                </div>
+                
+                <!-- 年間節約額のハイライト表示 -->
+                <div class="annual-savings-highlight">
+                    <div class="savings-container" id="savings-display">
+                        <div class="savings-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="savings-content">
+                            <h3 class="savings-title">年間節約額</h3>
+                            <div class="savings-amount">
+                                <span class="currency">¥</span>
+                                <span class="amount" id="annual-savings">28,800</span>
+                            </div>
+                            <p class="savings-description">現在の電気代と比較した年間節約金額です</p>
+                        </div>
+                        <div class="savings-badge">
+                            <span>お得!</span>
+                        </div>
+                    </div>
+                </div>
                 <!-- 標準プラン結果 -->
                 <div class="plan-result active" id="standard-result">
                     <!-- 現在のプラン詳細 -->
@@ -532,54 +628,49 @@
                         <p class="savings-amount"><span class="amount">¥5,640</span></p>
                     </div>
 
-                    <!-- 電気契約情報テーブル -->
-                    <div class="contract-info">
-                        <h4 class="contract-title">電気契約情報</h4>
-                        <table class="contract-table">
-                            <tr>
-                                <td>契約期間</td>
-                                <td>2年</td>
-                            </tr>
-                            <tr>
-                                <td>違約金</td>
-                                <td>2年以内の解約で事務手数料9,000円が発生</td>
-                            </tr>
-                            <tr>
-                                <td>支払方法</td>
-                                <td>振込、口座振替、クレジットカード</td>
-                            </tr>
-                            <tr>
-                                <td>明細書</td>
-                                <td>web</td>
-                            </tr>
-                        </table>
+                    <!-- 電気契約情報（折りたたみ式） -->
+                    <div class="contract-details-section">
+                        <div class="contract-header" onclick="toggleContractDetails()">
+                            <h4 class="contract-title">
+                                <i class="fas fa-file-contract"></i>
+                                電気契約情報
+                            </h4>
+                            <button class="toggle-btn" id="contract-toggle">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="contract-content" id="contract-content" style="display: none;">
+                            <!-- 契約情報テーブル -->
+                            <table class="contract-table">
+                                <tr><td>契約期間</td><td>2年</td></tr>
+                                <tr><td>違約金</td><td>2年以内の解約で事務手数料9,000円が発生</td></tr>
+                                <tr><td>支払方法</td><td>振込、口座振替、クレジットカード</td></tr>
+                                <tr><td>明細書</td><td>web</td></tr>
+                            </table>
+                        </div>
                     </div>
 
-                    <!-- プラン説明表 -->
-                    <div class="plan-detail-table">
-                        <h4 class="plan-table-title">料金単価詳細</h4>
-                        <table class="rate-table">
-                            <thead>
-                                <tr>
-                                    <th>区分</th>
-                                    <th>単位</th>
-                                    <th>料金単価</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>基本料金</td>
-                                    <td>1契約</td>
-                                    <td>1,200円</td>
-                                </tr>
-                                <tr>
-                                    <td>電力量料金（第1段階）</td>
-                                    <td>1kWh</td>
-                                    <td>23.00円</td>
-                                </tr>
-                                <tr>
-                                    <td>電力量料金（第2段階）</td>
-                                    <td>1kWh</td>
+                    <!-- 料金単価詳細（折りたたみ式） -->
+                    <div class="pricing-details-section">
+                        <div class="pricing-header" onclick="togglePricingDetails()">
+                            <h4 class="pricing-title">
+                                <i class="fas fa-yen-sign"></i>
+                                料金単価詳細
+                            </h4>
+                            <button class="toggle-btn" id="pricing-toggle">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="pricing-content" id="pricing-content" style="display: none;">
+                            <!-- 料金単価テーブル -->
+                            <table class="pricing-table">
+                                <thead>
+                                    <tr><th>区分</th><th>単位</th><th>料金単価</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>基本料金</td><td>1契約</td><td>1,200円</td></tr>
+                                    <tr><td>電力量料金（第1段階）</td><td>1kWh</td><td>23.00円</td></tr>
+                                    <tr><td>電力量料金（第2段階）</td><td>1kWh</td>
                                     <td>28.00円</td>
                                 </tr>
                                 <tr>
@@ -589,6 +680,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
 
                     <!-- 注釈 -->
@@ -1138,8 +1230,88 @@
 
         <!-- 申込セクション -->
         <section id="application" class="section">
-            <!-- 入力フォーム -->
-            <div id="application-form" class="application-step active">
+            <h2 class="section-header">お申込み内容確認</h2>
+            
+            <div class="application-confirm-view">
+                <div class="confirm-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <span>以下の内容でお申込みいただけます。修正が必要な場合は各項目の編集ボタンをクリックしてください。</span>
+                </div>
+                
+                <!-- 確認表示エリア -->
+                <div class="confirm-sections">
+                    <!-- お客様情報 -->
+                    <div class="confirm-section">
+                        <div class="confirm-header">
+                            <h3 class="confirm-title">お客様情報</h3>
+                            <button class="edit-btn" onclick="editCustomerInfo()">
+                                <i class="fas fa-edit"></i> 編集
+                            </button>
+                        </div>
+                        <div class="confirm-content">
+                            <div class="confirm-row">
+                                <span class="confirm-label">お名前</span>
+                                <span class="confirm-value" id="confirm-customer-name">山田 太郎</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">フリガナ</span>
+                                <span class="confirm-value" id="confirm-customer-kana">ヤマダ タロウ</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">郵便番号</span>
+                                <span class="confirm-value" id="confirm-postal">530-0001</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">ご住所</span>
+                                <span class="confirm-value" id="confirm-address">大阪府大阪市北区梅田1-1-1 梅田ビル101号</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">メールアドレス</span>
+                                <span class="confirm-value" id="confirm-email">yamada.taro@example.com</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">電話番号</span>
+                                <span class="confirm-value" id="confirm-phone">090-1234-5678</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- プラン情報 -->
+                    <div class="confirm-section">
+                        <div class="confirm-header">
+                            <h3 class="confirm-title">ご選択プラン</h3>
+                            <button class="edit-btn" onclick="editPlanInfo()">
+                                <i class="fas fa-edit"></i> 編集
+                            </button>
+                        </div>
+                        <div class="confirm-content">
+                            <div class="confirm-row">
+                                <span class="confirm-label">プラン名</span>
+                                <span class="confirm-value" id="confirm-plan-name">標準プラン</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">月間電気使用量</span>
+                                <span class="confirm-value">300kWh（平均的なご家庭）</span>
+                            </div>
+                            <div class="confirm-row">
+                                <span class="confirm-label">年間予想節約額</span>
+                                <span class="confirm-value highlight">¥28,800</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 申込ボタン -->
+                    <div class="application-submit">
+                        <button class="btn-primary-gradient btn-large" onclick="proceedToContract()">
+                            <i class="fas fa-arrow-right"></i>
+                            この内容で申込む
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 元の入力フォーム（非表示） -->
+            <div id="application-form" class="application-step" style="display: none;">
                 <h2 class="section-header">お申込みフォーム</h2>
                 
                 <form id="apply-form" class="application-form">

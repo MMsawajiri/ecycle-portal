@@ -534,20 +534,24 @@
                 <h3>お客様情報</h3>
                 <div class="form-row">
                     <div class="form-group">
+                        <label>姓 <span style="color: #E74C3C;">*</span></label>
                         <input type="text" name="lastName" placeholder="姓" required>
                         <span class="error-message"></span>
                     </div>
                     <div class="form-group">
+                        <label>名 <span style="color: #E74C3C;">*</span></label>
                         <input type="text" name="firstName" placeholder="名" required>
                         <span class="error-message"></span>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
+                        <label>セイ（カタカナ） <span style="color: #E74C3C;">*</span></label>
                         <input type="text" name="lastNameKana" placeholder="セイ（カタカナ）" required>
                         <span class="error-message"></span>
                     </div>
                     <div class="form-group">
+                        <label>メイ（カタカナ） <span style="color: #E74C3C;">*</span></label>
                         <input type="text" name="firstNameKana" placeholder="メイ（カタカナ）" required>
                         <span class="error-message"></span>
                     </div>
@@ -558,10 +562,12 @@
             <section class="form-section">
                 <h3>ご住所</h3>
                 <div class="form-group">
+                    <label>郵便番号 <span style="color: #E74C3C;">*</span></label>
                     <input type="text" name="postalCode" placeholder="郵便番号（123-4567）" required>
                     <span class="error-message"></span>
                 </div>
                 <div class="form-group">
+                    <label>都道府県 <span style="color: #E74C3C;">*</span></label>
                     <select name="prefecture" required>
                         <option value="">都道府県を選択</option>
                         <option value="hokkaido">北海道</option>
@@ -615,10 +621,12 @@
                     <span class="error-message"></span>
                 </div>
                 <div class="form-group">
+                    <label>市区町村 <span style="color: #E74C3C;">*</span></label>
                     <input type="text" name="city" placeholder="市区町村" required>
                     <span class="error-message"></span>
                 </div>
                 <div class="form-group">
+                    <label>番地・建物名・部屋番号 <span style="color: #E74C3C;">*</span></label>
                     <input type="text" name="address" placeholder="番地・建物名・部屋番号" required>
                     <span class="error-message"></span>
                 </div>
@@ -628,14 +636,17 @@
             <section class="form-section">
                 <h3>連絡先</h3>
                 <div class="form-group">
+                    <label>メールアドレス <span style="color: #E74C3C;">*</span></label>
                     <input type="email" name="email" placeholder="メールアドレス" required>
                     <span class="error-message"></span>
                 </div>
                 <div class="form-group">
+                    <label>メールアドレス（確認用） <span style="color: #E74C3C;">*</span></label>
                     <input type="email" name="emailConfirm" placeholder="メールアドレス（確認用）" required>
                     <span class="error-message"></span>
                 </div>
                 <div class="form-group">
+                    <label>電話番号 <span style="color: #E74C3C;">*</span></label>
                     <input type="tel" name="phone" placeholder="電話番号（090-1234-5678）" required>
                     <span class="error-message"></span>
                 </div>
@@ -645,6 +656,7 @@
             <section class="form-section">
                 <h3>現在ご契約の電力会社</h3>
                 <div class="form-group">
+                    <label>電力会社 <span style="color: #E74C3C;">*</span></label>
                     <select name="currentProvider" required>
                         <option value="">選択してください</option>
                         <option value="tepco">東京電力エナジーパートナー</option>
@@ -662,31 +674,14 @@
                     <span class="error-message"></span>
                 </div>
                 <div class="form-group">
+                    <label>お客様番号（検針票に記載）</label>
                     <input type="text" name="customerNumber" placeholder="お客様番号（検針票に記載）">
                     <span class="error-message"></span>
                 </div>
-            </section>
-
-            <!-- プラン選択 -->
-            <section class="form-section">
-                <h3>ご希望プラン</h3>
-                <div class="plan-options">
-                    <label class="plan-option">
-                        <input type="radio" name="plan" value="standard" checked>
-                        <div class="plan-card">
-                            <h4>標準プラン</h4>
-                            <p>安定した料金でお得に</p>
-                            <span class="plan-price">年間約12,000円お得</span>
-                        </div>
-                    </label>
-                    <label class="plan-option">
-                        <input type="radio" name="plan" value="market">
-                        <div class="plan-card">
-                            <h4>市場連動プラン</h4>
-                            <p>市場価格に連動</p>
-                            <span class="plan-price">年間約8,000円お得</span>
-                        </div>
-                    </label>
+                <div class="form-group">
+                    <label>供給地点特定番号 <span style="color: #E74C3C;">*</span></label>
+                    <input type="text" name="supplyPointNumber" placeholder="供給地点特定番号（22桁）" maxlength="22" required>
+                    <span class="error-message"></span>
                 </div>
             </section>
 

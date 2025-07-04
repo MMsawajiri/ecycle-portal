@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>申込内容確認 - e.CYCLE</title>
+    <title>登録内容確認 - e.CYCLE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -465,8 +465,8 @@
     <!-- メインコンテンツ -->
     <main class="main-container">
         <div class="page-title">
-            <h1>申込内容確認</h1>
-            <p class="page-subtitle">入力内容をご確認ください</p>
+            <h1>登録内容確認</h1>
+            <p class="page-subtitle">会員登録情報をご確認ください</p>
         </div>
 
         <div class="confirm-container">
@@ -527,14 +527,10 @@
                         <div class="info-label">お客様番号</div>
                         <div class="info-value" id="customerNumber">-</div>
                     </div>
-                </div>
-            </div>
-
-            <!-- プラン選択 -->
-            <div class="confirm-section">
-                <h3 class="section-title">ご選択プラン</h3>
-                <div class="plan-display" id="selectedPlan">
-                    <!-- プラン情報がJavaScriptで表示される -->
+                    <div class="info-row">
+                        <div class="info-label">供給地点特定番号</div>
+                        <div class="info-value" id="supplyPointNumber">-</div>
+                    </div>
                 </div>
             </div>
 
@@ -545,18 +541,17 @@
                     <span>重要なお知らせ</span>
                 </div>
                 <ul class="notice-list">
-                    <li>お申込み完了後、審査を行います（通常1-2営業日）</li>
-                    <li>審査完了後、切替手続きを開始いたします</li>
-                    <li>現在の電力会社への解約手続きは弊社で代行いたします</li>
-                    <li>切替完了まで約2-4週間お時間をいただきます</li>
-                    <li>料金は切替完了月の翌月から適用されます</li>
+                    <li>会員登録完了後、マイページがご利用いただけます</li>
+                    <li>登録メールアドレス宛にログイン情報をお送りいたします</li>
+                    <li>マイページから電気契約のお申込みを行ってください</li>
+                    <li>奇約完了後、e.CYCLEの電気をご利用いただけます</li>
                 </ul>
             </div>
 
             <!-- ボタン -->
             <div class="form-actions">
                 <button type="button" class="btn-secondary" onclick="goBack()">修正する</button>
-                <button type="button" class="btn-primary" onclick="submitApplication()">この内容で申込む</button>
+                <button type="button" class="btn-primary" onclick="submitApplication()">この内容で登録する</button>
             </div>
         </div>
     </main>
@@ -572,7 +567,7 @@
             const data = JSON.parse(sessionStorage.getItem('applicationData'));
             
             if (!data) {
-                alert('申込データが見つかりません。入力画面からやり直してください。');
+                alert('登録データが見つかりません。入力画面からやり直してください。');
                 window.location.href = 'application-form.html';
                 return;
             }
@@ -591,22 +586,7 @@
             document.getElementById('phone').textContent = data.phone || '-';
             document.getElementById('currentProvider').textContent = getProviderName(data.currentProvider);
             document.getElementById('customerNumber').textContent = data.customerNumber || '未入力';
-
-            // プラン情報を表示
-            const planDisplay = document.getElementById('selectedPlan');
-            if (data.plan === 'standard') {
-                planDisplay.innerHTML = `
-                    <h4>標準プラン</h4>
-                    <p>安定した料金でお得に</p>
-                    <span class="plan-price">年間約12,000円お得</span>
-                `;
-            } else {
-                planDisplay.innerHTML = `
-                    <h4>市場連動プラン</h4>
-                    <p>市場価格に連動</p>
-                    <span class="plan-price">年間約8,000円お得</span>
-                `;
-            }
+            document.getElementById('supplyPointNumber').textContent = data.supplyPointNumber || '-';
         }
 
         function getPrefectureName(value) {
@@ -684,8 +664,8 @@
         }
 
         function submitApplication() {
-            // 契約内容確認画面に遷移
-            window.location.href = 'application-contract.html';
+            // 会員登録完了画面に遷移
+            window.location.href = 'application-complete.html';
         }
     </script>
 </body>

@@ -496,22 +496,105 @@ function showResetError(message) {
 
 // 登録内容確認画面表示
 function showRegistrationScreen() {
-    const loginScreen = document.getElementById('login-screen');
-    const passwordResetScreen = document.getElementById('password-reset-screen');
-    const registrationScreen = document.getElementById('registration-screen');
-    const mainContent = document.querySelector('.main-content');
-    const header = document.querySelector('.header');
-    const bottomNav = document.querySelector('.bottom-nav');
+    showSection('registration');
+    loadRegistrationData();
+}
+
+// 申込データの読み込み
+function loadRegistrationData() {
+    const applicationData = localStorage.getItem('lastApplicationData');
+    const applicationNumber = localStorage.getItem('lastApplicationNumber');
     
-    // 全ての画面を非表示
-    if (loginScreen) loginScreen.style.display = 'none';
-    if (passwordResetScreen) passwordResetScreen.style.display = 'none';
-    if (mainContent) mainContent.style.display = 'none';
-    if (header) header.style.display = 'none';
-    if (bottomNav) bottomNav.style.display = 'none';
+    if (applicationData && applicationNumber) {
+        try {
+            const data = JSON.parse(applicationData);
+            displayRegistrationData(data, applicationNumber);
+        } catch (e) {
+            showNoApplicationMessage();
+        }
+    } else {
+        showNoApplicationMessage();
+    }
+}
+
+// 申込データの表示
+function displayRegistrationData(data, applicationNumber) {
+    document.getElementById('reg-fullname').textContent = `${data.lastName || ''} ${data.firstName || ''}`.trim() || '-';
+    document.getElementById('reg-postal').textContent = data.postalCode || '-';
     
-    // 登録確認画面を表示
-    if (registrationScreen) registrationScreen.style.display = 'block';
+    // 都道府県名を取得
+    const prefectureName = getPrefectureName(data.prefecture);
+    document.getElementById('reg-address').textContent = `${prefectureName}${data.city || ''}${data.address || ''}` || '-';
+    
+    document.getElementById('reg-email').textContent = data.email || '-';
+    document.getElementById('reg-phone').textContent = data.phone || '-';
+    document.getElementById('reg-plan').textContent = data.plan === 'standard' ? '標準プラン' : '市場連動プラン';
+    document.getElementById('reg-application-number').textContent = applicationNumber || '-';
+    
+    document.getElementById('application-status').style.display = 'none';
+    document.getElementById('registration-info').style.display = 'block';
+    document.getElementById('no-application').style.display = 'none';
+}
+
+// 未申込時の表示
+function showNoApplicationMessage() {
+    document.getElementById('application-status').style.display = 'none';
+    document.getElementById('registration-info').style.display = 'none';
+    document.getElementById('no-application').style.display = 'block';
+}
+
+// 都道府県名取得関数
+function getPrefectureName(value) {
+    const prefectures = {
+        'hokkaido': '北海道',
+        'aomori': '青森県',
+        'iwate': '岩手県',
+        'miyagi': '宮城県',
+        'akita': '秋田県',
+        'yamagata': '山形県',
+        'fukushima': '福島県',
+        'ibaraki': '茨城県',
+        'tochigi': '栃木県',
+        'gunma': '群馬県',
+        'saitama': '埼玉県',
+        'chiba': '千葉県',
+        'tokyo': '東京都',
+        'kanagawa': '神奈川県',
+        'niigata': '新潟県',
+        'toyama': '富山県',
+        'ishikawa': '石川県',
+        'fukui': '福井県',
+        'yamanashi': '山梨県',
+        'nagano': '長野県',
+        'gifu': '岐阜県',
+        'shizuoka': '静岡県',
+        'aichi': '愛知県',
+        'mie': '三重県',
+        'shiga': '滋賀県',
+        'kyoto': '京都府',
+        'osaka': '大阪府',
+        'hyogo': '兵庫県',
+        'nara': '奈良県',
+        'wakayama': '和歌山県',
+        'tottori': '鳥取県',
+        'shimane': '島根県',
+        'okayama': '岡山県',
+        'hiroshima': '広島県',
+        'yamaguchi': '山口県',
+        'tokushima': '徳島県',
+        'kagawa': '香川県',
+        'ehime': '愛媛県',
+        'kochi': '高知県',
+        'fukuoka': '福岡県',
+        'saga': '佐賀県',
+        'nagasaki': '長崎県',
+        'kumamoto': '熊本県',
+        'oita': '大分県',
+        'miyazaki': '宮崎県',
+        'kagoshima': '鹿児島県',
+        'okinawa': '沖縄県'
+    };
+    return prefectures[value] || '';
 }
 
 // 支払い画面表示
@@ -1495,3 +1578,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 500);
 });
+// 契約情報の折りたたみ
+function toggleContractDetails() {
+    const content = document.getElementById('contract-content');
+    const toggle = document.getElementById('contract-toggle');
+    const icon = toggle.querySelector('i');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.classList.remove('fa-plus');
+        icon.classList.add('fa-minus');
+    } else {
+        content.style.display = 'none';
+        icon.classList.remove('fa-minus');
+        icon.classList.add('fa-plus');
+    }
+}
+
+// 料金詳細の折りたたみ
+function togglePricingDetails() {
+    const content = document.getElementById('pricing-content');
+    const toggle = document.getElementById('pricing-toggle');
+    const icon = toggle.querySelector('i');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.classList.remove('fa-plus');
+        icon.classList.add('fa-minus');
+    } else {
+        content.style.display = 'none';
+        icon.classList.remove('fa-minus');
+        icon.classList.add('fa-plus');
+    }
+}
+
+// 申込み確認画面の編集ボタン機能
+function editCustomerInfo() {
+    alert('お客様情報の編集機能は準備中です。\n現在はデモ表示となっております。');
+}
+
+function editPlanInfo() {
+    alert('プラン情報の編集機能は準備中です。\nシミュレーション画面から変更可能です。');
+}
+
+function proceedToContract() {
+    // 申込み処理へ進む
+    window.location.href = 'application-form.html';
+}
