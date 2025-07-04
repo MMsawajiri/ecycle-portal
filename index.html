@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e.CYCLE - 再エネで地域に貢献</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">e.CYCLE</h1>
+            <button class="menu-toggle" aria-label="メニュー">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ローディング画面 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">e.CYCLE</div>
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <p class="loading-text">読み込み中...</p>
+        </div>
+    </div>
+
+    <!-- ログイン画面 -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="login-logo">e.CYCLE</h1>
+                <p class="login-subtitle">再エネで地域に貢献</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="login-email">メールアドレス</label>
+                    <input type="email" id="login-email" name="email" required autocomplete="email">
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">パスワード</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" name="password" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message"></span>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <span class="btn-text">ログイン</span>
+                    <div class="btn-loading" style="display: none;">
+                        <div class="btn-spinner"></div>
+                    </div>
+                </button>
+                
+                <div class="login-links">
+                    <a href="#" class="forgot-password" onclick="showPasswordReset()">パスワードを忘れた方はこちら</a>
+                </div>
+            </form>
+            
+            <div class="login-demo">
+                <p class="demo-text">デモ用ログイン情報</p>
+                <p class="demo-info">メール: demo@ecycle.jp<br>パスワード: demo123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- パスワードリセット画面 -->
+    <div id="password-reset-screen" class="login-screen" style="display: none;">
+        <div class="login-container">
+            <div class="login-header">
+                <button class="back-btn" onclick="backToLogin()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>パスワードリセット</h2>
+            </div>
+            
+            <form id="reset-form" class="login-form">
+                <p class="reset-description">
+                    ご登録のメールアドレスを入力してください。<br>
+                    パスワードリセット用のリンクをお送りします。
+                </p>
+                
+                <div class="form-group">
+                    <label for="reset-email">メールアドレス</label>
+                    <input type="email" id="reset-email" name="email" required>
+                    <span class="error-message"></span>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    リセットリンクを送信
+                </button>
+                
+                <div class="login-links">
+                    <a href="#" onclick="backToLogin()">ログイン画面に戻る</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 登録内容確認セクション -->
+    <section id="registration" class="section">
+        <h2 class="section-header">登録内容確認</h2>
+        <div class="registration-container">
+            
+            <!-- 進捗ステップ -->
+            <div class="progress-steps">
+                <div class="step completed">
+                    <div class="step-circle">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span class="step-label">情報入力</span>
+                </div>
+                <div class="step current">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">内容確認</span>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">支払設定</span>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">完了</span>
+                </div>
+            </div>
+            
+            <!-- 個人情報セクション -->
+            <div class="registration-section">
+                <h3 class="section-title">
+                    <i class="fas fa-user"></i>
+                    お客様情報
+                </h3>
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">お名前</span>
+                        <span class="info-value" id="reg-name">田中 太郎</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">フリガナ</span>
+                        <span class="info-value" id="reg-name-kana">タナカ タロウ</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">郵便番号</span>
+                        <span class="info-value" id="reg-postal">150-0001</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">ご住所</span>
+                        <span class="info-value" id="reg-address">東京都渋谷区神宮前1-1-1</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">メールアドレス</span>
+                        <span class="info-value" id="reg-email">demo@ecycle.jp</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">電話番号</span>
+                        <span class="info-value" id="reg-phone">03-1234-5678</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 契約情報セクション -->
+            <div class="registration-section">
+                <h3 class="section-title">
+                    <i class="fas fa-file-contract"></i>
+                    ご契約情報
+                </h3>
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">選択プラン</span>
+                        <span class="info-value">標準プラン</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">基本料金</span>
+                        <span class="info-value">¥1,200/月</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">従量料金</span>
+                        <span class="info-value">¥28.00/kWh</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">供給開始予定日</span>
+                        <span class="info-value">2025年8月1日</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">申込受付番号</span>
+                        <span class="info-value highlight">EC2025-0703-001</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 手続き状況セクション -->
+            <div class="registration-section">
+                <h3 class="section-title">
+                    <i class="fas fa-tasks"></i>
+                    お手続き状況
+                </h3>
+                <div class="status-timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>お申込み受付</h4>
+                            <p>2025年7月3日 14:30</p>
+                            <span class="status-badge completed">完了</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item in-progress">
+                        <div class="timeline-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>お支払い情報設定</h4>
+                            <p>クレジットカード情報のご登録をお願いします</p>
+                            <span class="status-badge in-progress">手続き中</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>切替手続き</h4>
+                            <p>現在の電力会社への切替連絡</p>
+                            <span class="status-badge pending">待機中</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>供給開始</h4>
+                            <p>e.CYCLEからの電力供給開始</p>
+                            <span class="status-badge pending">待機中</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- アクションボタン -->
+            <div class="registration-actions">
+                <button class="btn-secondary" onclick="backToLogin()">
+                    後で設定する
+                </button>
+                <button class="btn-primary-gradient" onclick="showPaymentScreen()">
+                    お支払い情報を設定
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 収納代行画面（支払い情報設定） -->
+    <div id="payment-screen" class="login-screen" style="display: none;">
+        <div class="payment-container">
+            <div class="payment-header">
+                <div class="header-content">
+                    <div class="logo">e.CYCLE</div>
+                    <div class="progress-indicator">
+                        <div class="step-number">4</div>
+                        <span>支払情報設定 (4/5)</span>
+                    </div>
+                </div>
+                <h1 class="payment-title">お支払い情報設定</h1>
+                <p class="payment-subtitle">クレジットカード情報をご入力ください</p>
+            </div>
+            
+            <!-- セキュリティ情報 -->
+            <div class="security-notice">
+                <div class="security-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="security-content">
+                    <h4>安全なお支払い</h4>
+                    <p>お客様のカード情報は暗号化されて保護されます。SSL証明書により通信内容は安全に保護されています。</p>
+                </div>
+            </div>
+            
+            <!-- 支払い情報フォーム -->
+            <form id="payment-form" class="payment-form">
+                <div class="card-preview">
+                    <div class="card-brand" id="card-brand">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="card-number-display" id="card-number-display">
+                        •••• •••• •••• ••••
+                    </div>
+                    <div class="card-details">
+                        <div class="card-holder" id="card-holder-display">カード所有者名</div>
+                        <div class="card-expiry" id="card-expiry-display">••/••</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="card-number">カード番号</label>
+                    <input type="text" id="card-number" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number">
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="card-holder">カード名義人</label>
+                    <input type="text" id="card-holder" name="cardHolder" placeholder="TARO TANAKA" autocomplete="cc-name">
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="card-expiry">有効期限</label>
+                        <input type="text" id="card-expiry" name="cardExpiry" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-cvv">セキュリティコード</label>
+                        <div class="cvv-container">
+                            <input type="text" id="card-cvv" name="cardCvv" placeholder="123" maxlength="4" autocomplete="cc-csc">
+                            <div class="cvv-help">
+                                <i class="fas fa-question-circle"></i>
+                                <div class="cvv-tooltip">
+                                    カード裏面の3桁または4桁の数字です
+                                </div>
+                            </div>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+                
+                <!-- 請求先住所 -->
+                <div class="billing-section">
+                    <h4 class="billing-title">請求先住所</h4>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="same-address" checked>
+                        <span class="checkmark"></span>
+                        登録住所と同じ
+                    </label>
+                </div>
+                
+                <!-- 自動更新設定 -->
+                <div class="auto-update-section">
+                    <h4 class="auto-update-title">
+                        <i class="fas fa-sync-alt"></i>
+                        カード自動更新サービス
+                    </h4>
+                    <p class="auto-update-description">
+                        カードの有効期限が更新された場合、自動的に新しい情報に更新されます。
+                    </p>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="auto-update" checked>
+                        <span class="checkmark"></span>
+                        自動更新サービスを利用する
+                    </label>
+                </div>
+                
+                <!-- 月額料金予定 -->
+                <div class="payment-summary">
+                    <h4 class="summary-title">お支払い予定金額</h4>
+                    <div class="summary-item">
+                        <span>基本料金</span>
+                        <span>¥1,200/月</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>従量料金</span>
+                        <span>¥28.00/kWh</span>
+                    </div>
+                    <div class="summary-note">
+                        ※実際の月額料金は使用量により変動します
+                    </div>
+                </div>
+                
+                <!-- 利用規約同意 -->
+                <div class="terms-section">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms-agree" required>
+                        <span class="checkmark"></span>
+                        <span class="terms-text">
+                            <a href="#" class="terms-link">利用規約</a>および<a href="#" class="terms-link">プライバシーポリシー</a>に同意します
+                        </span>
+                    </label>
+                </div>
+                
+                <!-- 送信ボタン -->
+                <button type="submit" class="btn-payment">
+                    <span class="btn-text">
+                        <i class="fas fa-lock"></i>
+                        安全に登録する
+                    </span>
+                    <div class="btn-loading" style="display: none;">
+                        <div class="btn-spinner"></div>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+        <!-- ホームセクション -->
+        <section id="home" class="section active">
+            <!-- お知らせエリア -->
+            <div class="announcement-area">
+                <p class="announcement-text">
+                    🎉 キャンペーン受付開始！地域の再エネでお得に電気を使おう！2025年7月開始分の申込を受付中です。
+                </p>
+            </div>
+
+            <!-- 機能カードエリア -->
+            <div class="feature-cards">
+                <!-- 料金シミュレーションカード -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="feature-title">料金シミュレーション</h3>
+                    <p class="feature-description">現在の使用量から、e.CYCLEの料金プランでどれくらいお得になるか計算します。</p>
+                    <button class="btn-primary-gradient" onclick="showSection('simulation')">
+                        シミュレーションする
+                    </button>
+                </div>
+
+                <!-- お申込みカード -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3 class="feature-title">お申込み</h3>
+                    <p class="feature-description">地域の再生可能エネルギーを活用したe.CYCLEへのお申込みはこちらから。</p>
+                    <button class="btn-secondary" onclick="window.open('application-form.html', '_blank')">
+                        申込ページへ
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- シミュレーションセクション -->
+        <section id="simulation" class="section">
+            <h2 class="section-header">料金シミュレーション</h2>
+            
+            <!-- シミュレーション基準値表示 -->
+            <div class="simulation-base-info">
+                <div class="base-card">
+                    <h3 class="base-title">シミュレーション条件</h3>
+                    <p class="base-usage">月間電気使用量: <strong>300kWh</strong></p>
+                    <p class="base-note">一般的なご家庭の平均使用量で計算しています</p>
+                </div>
+            </div>
+
+            <!-- タブ切り替え -->
+            <div class="plan-tabs">
+                <button class="tab-btn active" data-plan="standard">
+                    標準プラン
+                </button>
+                <button class="tab-btn" data-plan="market">
+                    市場連動プラン
+                </button>
+            </div>
+
+            <!-- 結果表示エリア -->
+            <div class="simulation-results">
+                <!-- 標準プラン結果 -->
+                <div class="plan-result active" id="standard-result">
+                    <!-- 現在のプラン詳細 -->
+                    <div class="current-plan-detail">
+                        <h4 class="plan-detail-title">【現在のプラン】</h4>
+                        <p class="current-provider">関西電力 従量電灯A</p>
+                        <table class="detail-breakdown-table">
+                            <tr>
+                                <td>基本料金</td>
+                                <td class="price">¥341.02</td>
+                            </tr>
+                            <tr>
+                                <td>電力量料金</td>
+                                <td class="price">¥6,929</td>
+                            </tr>
+                            <tr>
+                                <td>燃料費調整額など</td>
+                                <td class="price">¥1,234</td>
+                            </tr>
+                            <tr>
+                                <td>再エネ賦課金</td>
+                                <td class="price">¥892</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>合計</strong></td>
+                                <td class="price"><strong>¥9,396</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- e.CYCLEプラン詳細 -->
+                    <div class="ecycle-plan-detail">
+                        <h4 class="plan-detail-title">【e.CYCLE標準プラン】</h4>
+                        <table class="detail-breakdown-table">
+                            <tr>
+                                <td>基本料金</td>
+                                <td class="price">¥1,200</td>
+                            </tr>
+                            <tr>
+                                <td>電力量料金</td>
+                                <td class="price">¥5,600</td>
+                            </tr>
+                            <tr>
+                                <td>燃料費調整額など</td>
+                                <td class="price">¥1,234</td>
+                            </tr>
+                            <tr>
+                                <td>再エネ賦課金</td>
+                                <td class="price">¥892</td>
+                            </tr>
+                            <tr class="total-row ecycle-total">
+                                <td><strong>合計</strong></td>
+                                <td class="price"><strong>¥8,926</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- 節約額表示 -->
+                    <div class="savings-highlight">
+                        <h3 class="savings-title">年間節約額</h3>
+                        <p class="savings-amount"><span class="amount">¥5,640</span></p>
+                    </div>
+
+                    <!-- 電気契約情報テーブル -->
+                    <div class="contract-info">
+                        <h4 class="contract-title">電気契約情報</h4>
+                        <table class="contract-table">
+                            <tr>
+                                <td>契約期間</td>
+                                <td>2年</td>
+                            </tr>
+                            <tr>
+                                <td>違約金</td>
+                                <td>2年以内の解約で事務手数料9,000円が発生</td>
+                            </tr>
+                            <tr>
+                                <td>支払方法</td>
+                                <td>振込、口座振替、クレジットカード</td>
+                            </tr>
+                            <tr>
+                                <td>明細書</td>
+                                <td>web</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- プラン説明表 -->
+                    <div class="plan-detail-table">
+                        <h4 class="plan-table-title">料金単価詳細</h4>
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>区分</th>
+                                    <th>単位</th>
+                                    <th>料金単価</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>基本料金</td>
+                                    <td>1契約</td>
+                                    <td>1,200円</td>
+                                </tr>
+                                <tr>
+                                    <td>電力量料金（第1段階）</td>
+                                    <td>1kWh</td>
+                                    <td>23.00円</td>
+                                </tr>
+                                <tr>
+                                    <td>電力量料金（第2段階）</td>
+                                    <td>1kWh</td>
+                                    <td>28.00円</td>
+                                </tr>
+                                <tr>
+                                    <td>電力量料金（第3段階）</td>
+                                    <td>1kWh</td>
+                                    <td>32.00円</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 注釈 -->
+                    <div class="detailed-notes">
+                        <p class="note-text">
+                            <i class="fas fa-info-circle"></i>
+                            ※ ご入力いただいた情報、お住まいの地域の気象条件をもとに12カ月分の電気使用量をシミュレーション、年間の電気代や節約額を計算しています。
+                        </p>
+                        <p class="note-text">
+                            ※ 記載の金額には前月または前々月（いずれも公表されていない場合はそれ以前の最新）までの燃料費調整額/調達費調整額と最新の再生可能エネルギー発電促進賦課金を含みます。政府の「電気・ガス料金負担軽減支援事業」による割引は「燃料費調整額など」の合計金額に含まれています。
+                        </p>
+                        <p class="note-text">
+                            ※ 基本料金/最低料金・電力量料金・燃料費調整額など・再エネ賦課金は項目ごとの1カ月の合計金額から1円未満を切り捨てて計算しています。
+                        </p>
+                        <p class="note-text">
+                            ※ 割引額・ポイント付与・キャッシュバックなどは実際にお使いの電気使用量によって変動する場合があり、節約額をお約束するものではありません。また、現在の電気代には割引やキャンペーンは含まれていません。
+                        </p>
+                        <p class="note-text">
+                            ※ 現在契約中のプランの解約金・違約金の有無・金額については、ご契約の時期・ご契約からの経過期間によりますので、十分にご確認ください。
+                        </p>
+                    </div>
+
+                    <button class="btn-apply-gradient" onclick="applyPlan('standard')">
+                        標準プランで申し込む
+                    </button>
+                </div>
+
+                <!-- 市場連動プラン結果 -->
+                <div class="plan-result" id="market-result">
+                    <!-- 現在のプラン詳細 -->
+                    <div class="current-plan-detail">
+                        <h4 class="plan-detail-title">【現在のプラン】</h4>
+                        <p class="current-provider">関西電力 従量電灯A</p>
+                        <table class="detail-breakdown-table">
+                            <tr>
+                                <td>基本料金</td>
+                                <td class="price">¥341.02</td>
+                            </tr>
+                            <tr>
+                                <td>電力量料金</td>
+                                <td class="price">¥6,929</td>
+                            </tr>
+                            <tr>
+                                <td>燃料費調整額など</td>
+                                <td class="price">¥1,234</td>
+                            </tr>
+                            <tr>
+                                <td>再エネ賦課金</td>
+                                <td class="price">¥892</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>合計</strong></td>
+                                <td class="price"><strong>¥9,396</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- e.CYCLE市場連動プラン詳細 -->
+                    <div class="ecycle-plan-detail">
+                        <h4 class="plan-detail-title">【e.CYCLE市場連動プラン】</h4>
+                        <table class="detail-breakdown-table">
+                            <tr>
+                                <td>基本料金</td>
+                                <td class="price">¥980</td>
+                            </tr>
+                            <tr>
+                                <td>電力量料金</td>
+                                <td class="price">¥6,050</td>
+                            </tr>
+                            <tr>
+                                <td>燃料費調整額など</td>
+                                <td class="price">¥1,234</td>
+                            </tr>
+                            <tr>
+                                <td>再エネ賦課金</td>
+                                <td class="price">¥892</td>
+                            </tr>
+                            <tr class="total-row ecycle-total">
+                                <td><strong>合計</strong></td>
+                                <td class="price"><strong>¥9,156</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- 節約額表示 -->
+                    <div class="savings-highlight market">
+                        <h3 class="savings-title">年間節約額</h3>
+                        <p class="savings-amount"><span class="amount">¥2,880</span></p>
+                    </div>
+
+                    <!-- 電気契約情報テーブル（市場連動） -->
+                    <div class="contract-info">
+                        <h4 class="contract-title">電気契約情報</h4>
+                        <table class="contract-table">
+                            <tr>
+                                <td>契約期間</td>
+                                <td>1年</td>
+                            </tr>
+                            <tr>
+                                <td>違約金</td>
+                                <td>1年以内の解約で事務手数料6,000円が発生</td>
+                            </tr>
+                            <tr>
+                                <td>支払方法</td>
+                                <td>振込、口座振替、クレジットカード</td>
+                            </tr>
+                            <tr>
+                                <td>明細書</td>
+                                <td>web</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- プラン説明表（市場連動） -->
+                    <div class="plan-detail-table">
+                        <h4 class="plan-table-title">料金単価詳細</h4>
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>区分</th>
+                                    <th>単位</th>
+                                    <th>料金単価</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>基本料金</td>
+                                    <td>1契約</td>
+                                    <td>980円</td>
+                                </tr>
+                                <tr>
+                                    <td>電力量料金</td>
+                                    <td>1kWh</td>
+                                    <td>市場価格連動（15〜50円）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 注釈（市場連動） -->
+                    <div class="detailed-notes warning">
+                        <p class="note-text warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            ※ 市場価格に連動するため、電力需給によって料金が大きく変動する可能性があります。
+                        </p>
+                        <p class="note-text">
+                            <i class="fas fa-info-circle"></i>
+                            ※ ご入力いただいた情報、お住まいの地域の気象条件をもとに12カ月分の電気使用量をシミュレーション、年間の電気代や節約額を計算しています。
+                        </p>
+                        <p class="note-text">
+                            ※ 記載の金額には前月または前々月（いずれも公表されていない場合はそれ以前の最新）までの燃料費調整額/調達費調整額と最新の再生可能エネルギー発電促進賦課金を含みます。政府の「電気・ガス料金負担軽減支援事業」による割引は「燃料費調整額など」の合計金額に含まれています。
+                        </p>
+                        <p class="note-text">
+                            ※ 基本料金/最低料金・電力量料金・燃料費調整額など・再エネ賦課金は項目ごとの1カ月の合計金額から1円未満を切り捨てて計算しています。
+                        </p>
+                        <p class="note-text">
+                            ※ 割引額・ポイント付与・キャッシュバックなどは実際にお使いの電気使用量によって変動する場合があり、節約額をお約束するものではありません。また、現在の電気代には割引やキャンペーンは含まれていません。
+                        </p>
+                        <p class="note-text">
+                            ※ 現在契約中のプランの解約金・違約金の有無・金額については、ご契約の時期・ご契約からの経過期間によりますので、十分にご確認ください。
+                        </p>
+                    </div>
+
+                    <button class="btn-apply-gradient" onclick="applyPlan('market')">
+                        市場連動プランで申し込む
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 料金確認セクション -->
+        <section id="billing" class="section">
+            <h2 class="section-header">料金確認</h2>
+            
+            <!-- 料金サマリー -->
+            <div class="billing-summary">
+                <div class="summary-card">
+                    <div class="current-amount">
+                        <span class="amount-label">2025年6月分 電気料金</span>
+                        <span class="amount-value">¥12,350</span>
+                    </div>
+                    <div class="payment-status">
+                        <span class="status-label">お支払い状況</span>
+                        <span class="status-value paid">支払い済み</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 料金内訳 -->
+            <div class="billing-breakdown">
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-receipt"></i>
+                        料金内訳
+                    </h3>
+                    <div class="breakdown-table-wrapper">
+                        <table class="billing-breakdown-table">
+                            <tr>
+                                <td>基本料金</td>
+                                <td class="amount">¥1,320</td>
+                            </tr>
+                            <tr>
+                                <td>従量料金</td>
+                                <td class="amount">¥9,240</td>
+                            </tr>
+                            <tr>
+                                <td>再エネ賦課金</td>
+                                <td class="amount">¥892</td>
+                            </tr>
+                            <tr>
+                                <td>燃料費調整額</td>
+                                <td class="amount">¥456</td>
+                            </tr>
+                            <tr>
+                                <td>消費税</td>
+                                <td class="amount">¥1,235</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>合計</td>
+                                <td class="amount">¥12,350</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 環境貢献実績 -->
+            <div class="environmental-impact">
+                <div class="impact-header">
+                    <h3 class="impact-title">
+                        <i class="fas fa-leaf"></i>
+                        環境貢献実績
+                    </h3>
+                    <p class="impact-subtitle">あなたの地球環境への貢献をご確認ください</p>
+                </div>
+                
+                <div class="impact-cards">
+                    <div class="impact-card usage">
+                        <div class="impact-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="impact-content">
+                            <span class="impact-value">280</span>
+                            <span class="impact-unit">kWh</span>
+                            <span class="impact-label">今月の使用量</span>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-card co2">
+                        <div class="impact-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="impact-content">
+                            <span class="impact-value">140</span>
+                            <span class="impact-unit">kg-CO2</span>
+                            <span class="impact-label">CO2削減量</span>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-card contribution">
+                        <div class="impact-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="impact-content">
+                            <span class="impact-value">42</span>
+                            <span class="impact-unit">円</span>
+                            <span class="impact-label">地域活性化原資</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="impact-description">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        従来の電力と比較して、140kg分のCO2削減に貢献しています。これは杉の木約10本が1年間で吸収するCO2量に相当します。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用量セクション -->
+        <section id="usage" class="section">
+            <h2 class="section-header">使用量確認</h2>
+            
+            <!-- 統計表示 -->
+            <div class="usage-stats">
+                <div class="stats-card current">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value">280</span>
+                        <span class="stat-unit">kWh</span>
+                        <span class="stat-label">今月使用量</span>
+                    </div>
+                </div>
+                
+                <div class="stats-card comparison">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-value decrease">-12%</span>
+                        <span class="stat-label">前年同月比</span>
+                        <span class="stat-sublabel">320 kWh → 280 kWh</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- チャートタブ -->
+            <div class="chart-section">
+                <div class="chart-tabs">
+                    <button class="chart-tab active" data-period="daily">
+                        <i class="fas fa-calendar-day"></i>
+                        日別
+                    </button>
+                    <button class="chart-tab" data-period="monthly">
+                        <i class="fas fa-calendar-alt"></i>
+                        月別
+                    </button>
+                    <button class="chart-tab" data-period="yearly">
+                        <i class="fas fa-calendar"></i>
+                        年別
+                    </button>
+                </div>
+
+                <!-- グラフ表示エリア -->
+                <div class="chart-container">
+                    <div class="chart-content active" id="daily-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">日別使用量（6月）</h3>
+                            <span class="chart-period">2025年6月1日 - 6月30日</span>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <p class="chart-message">日別使用量グラフ</p>
+                            <p class="chart-note">※ 実際のグラフライブラリで表示予定</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-content" id="monthly-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">月別使用量（2025年）</h3>
+                            <span class="chart-period">2025年1月 - 12月</span>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <p class="chart-message">月別使用量グラフ</p>
+                            <p class="chart-note">※ 実際のグラフライブラリで表示予定</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-content" id="yearly-chart">
+                        <div class="chart-header">
+                            <h3 class="chart-title">年別使用量</h3>
+                            <span class="chart-period">2022年 - 2025年</span>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-icon">
+                                <i class="fas fa-chart-area"></i>
+                            </div>
+                            <p class="chart-message">年別使用量グラフ</p>
+                            <p class="chart-note">※ 実際のグラフライブラリで表示予定</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 使用量詳細 -->
+            <div class="usage-detail">
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-info-circle"></i>
+                        使用量詳細
+                    </h3>
+                    <div class="detail-list">
+                        <div class="detail-item">
+                            <span class="detail-label">今月の平均日使用量</span>
+                            <span class="detail-value">9.3 kWh/日</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">最大使用日</span>
+                            <span class="detail-value">6月15日（15.2 kWh）</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">最小使用日</span>
+                            <span class="detail-value">6月8日（4.1 kWh）</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- エコ節約のヒント -->
+            <div class="eco-tips">
+                <h3 class="tips-title">
+                    <i class="fas fa-lightbulb"></i>
+                    エコ節約のヒント
+                </h3>
+                <div class="tip-card">
+                    <p>
+                        <i class="fas fa-thermometer-half"></i>
+                        エアコンの設定温度を1度調整すると、約10%の節電効果があります。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- サポートセクション -->
+        <section id="support" class="section">
+            <!-- お問い合わせページ -->
+            <div id="support-main" class="support-step active">
+                <div class="section-header-with-nav">
+                    <button class="back-to-home-btn" onclick="showSection('home')" title="ホームに戻る">
+                        <i class="fas fa-home"></i>
+                        <span>TOP</span>
+                    </button>
+                    <h2 class="section-header">サポート・お問い合わせ</h2>
+                </div>
+                
+                <!-- チャットサポートカード -->
+                <div class="chat-support-card">
+                    <div class="chat-card-content">
+                        <div class="chat-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="chat-info">
+                            <h3 class="chat-title">チャットサポート</h3>
+                            <p class="chat-description">24時間対応のAIチャットボットがお答えします</p>
+                            <p class="chat-features">・即座に回答 ・よくある質問に対応</p>
+                        </div>
+                    </div>
+                    <button class="btn-chat-start" onclick="startChat()">
+                        <i class="fas fa-comments"></i>
+                        チャットを開始
+                    </button>
+                </div>
+
+                <!-- メール問合せフォーム -->
+                <div class="email-support-section">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-envelope"></i>
+                            メールでお問い合わせ
+                        </h3>
+                        
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="inquiry-type">お問い合わせ種別 <span class="required">必須</span></label>
+                                <select id="inquiry-type" name="inquiryType" required>
+                                    <option value="">選択してください</option>
+                                    <option value="portal">ポータルの使い方</option>
+                                    <option value="contract">契約に関する質問</option>
+                                    <option value="moving">引っ越し手続き</option>
+                                    <option value="cancellation">解約手続き</option>
+                                    <option value="namechange">名義変更</option>
+                                    <option value="other">その他</option>
+                                </select>
+                                <span class="error-message"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="inquiry-content">お問い合わせ内容 <span class="required">必須</span></label>
+                                <textarea id="inquiry-content" name="inquiryContent" rows="6" placeholder="お問い合わせ内容をできるだけ詳しくご記入ください" required></textarea>
+                                <span class="error-message"></span>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary-gradient">
+                                <i class="fas fa-paper-plane"></i>
+                                送信する
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 注意事項 -->
+                <div class="support-notice">
+                    <div class="notice-card">
+                        <h4 class="notice-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            重要なお知らせ
+                        </h4>
+                        <p class="notice-text">
+                            電力供給に関するお問い合わせ（停電、メーター交換等）は、お住まいの地域の小売電気事業者にお問い合わせください。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 電話サポート -->
+                <div class="phone-support">
+                    <div class="card contact-card">
+                        <h3 class="card-title">
+                            <i class="fas fa-phone"></i>
+                            お電話でのお問い合わせ
+                        </h3>
+                        <p class="contact-number">0120-XXX-XXX</p>
+                        <p class="contact-hours">受付時間: 9:00-18:00（平日のみ）</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- チャット画面 -->
+            <div id="chat-window" class="support-step">
+                <div class="chat-header">
+                    <button class="chat-back-btn" onclick="backToSupport()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="chat-header-info">
+                        <div class="chat-header-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="chat-header-text">
+                            <h3>e.CYCLEサポート</h3>
+                            <span class="chat-status">オンライン</span>
+                        </div>
+                    </div>
+                    <button class="chat-home-btn" onclick="showSection('home')" title="ホームに戻る">
+                        <i class="fas fa-home"></i>
+                    </button>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>こんにちは！e.CYCLEサポートです。<br>どのようなことでお困りでしょうか？</p>
+                            <span class="message-time">今すぐ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <div class="chat-input-container">
+                        <input type="text" id="chat-input" placeholder="メッセージを入力..." maxlength="500">
+                        <button id="chat-send-btn" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 申込セクション -->
+        <section id="application" class="section">
+            <!-- 入力フォーム -->
+            <div id="application-form" class="application-step active">
+                <h2 class="section-header">お申込みフォーム</h2>
+                
+                <form id="apply-form" class="application-form">
+                    <!-- お名前 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">お客様情報</h3>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="last-name">お名前（姓）<span class="required">必須</span></label>
+                                <input type="text" id="last-name" name="lastName" required>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group half">
+                                <label for="first-name">お名前（名）<span class="required">必須</span></label>
+                                <input type="text" id="first-name" name="firstName" required>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="last-name-kana">お名前カナ（セイ）<span class="required">必須</span></label>
+                                <input type="text" id="last-name-kana" name="lastNameKana" pattern="[\u30A0-\u30FF]+" required>
+                                <span class="error-message"></span>
+                            </div>
+                            <div class="form-group half">
+                                <label for="first-name-kana">お名前カナ（メイ）<span class="required">必須</span></label>
+                                <input type="text" id="first-name-kana" name="firstNameKana" pattern="[\u30A0-\u30FF]+" required>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 住所 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">ご住所</h3>
+                        <div class="form-group">
+                            <label for="postal-code">郵便番号<span class="required">必須</span></label>
+                            <input type="text" id="postal-code" name="postalCode" placeholder="123-4567" maxlength="8" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="prefecture">都道府県<span class="required">必須</span></label>
+                            <select id="prefecture" name="prefecture" required>
+                                <option value="">選択してください</option>
+                                <option value="北海道">北海道</option>
+                                <option value="青森県">青森県</option>
+                                <option value="岩手県">岩手県</option>
+                                <option value="宮城県">宮城県</option>
+                                <option value="秋田県">秋田県</option>
+                                <option value="山形県">山形県</option>
+                                <option value="福島県">福島県</option>
+                                <option value="茨城県">茨城県</option>
+                                <option value="栃木県">栃木県</option>
+                                <option value="群馬県">群馬県</option>
+                                <option value="埼玉県">埼玉県</option>
+                                <option value="千葉県">千葉県</option>
+                                <option value="東京都">東京都</option>
+                                <option value="神奈川県">神奈川県</option>
+                                <option value="新潟県">新潟県</option>
+                                <option value="富山県">富山県</option>
+                                <option value="石川県">石川県</option>
+                                <option value="福井県">福井県</option>
+                                <option value="山梨県">山梨県</option>
+                                <option value="長野県">長野県</option>
+                                <option value="岐阜県">岐阜県</option>
+                                <option value="静岡県">静岡県</option>
+                                <option value="愛知県">愛知県</option>
+                                <option value="三重県">三重県</option>
+                                <option value="滋賀県">滋賀県</option>
+                                <option value="京都府">京都府</option>
+                                <option value="大阪府">大阪府</option>
+                                <option value="兵庫県">兵庫県</option>
+                                <option value="奈良県">奈良県</option>
+                                <option value="和歌山県">和歌山県</option>
+                                <option value="鳥取県">鳥取県</option>
+                                <option value="島根県">島根県</option>
+                                <option value="岡山県">岡山県</option>
+                                <option value="広島県">広島県</option>
+                                <option value="山口県">山口県</option>
+                                <option value="徳島県">徳島県</option>
+                                <option value="香川県">香川県</option>
+                                <option value="愛媛県">愛媛県</option>
+                                <option value="高知県">高知県</option>
+                                <option value="福岡県">福岡県</option>
+                                <option value="佐賀県">佐賀県</option>
+                                <option value="長崎県">長崎県</option>
+                                <option value="熊本県">熊本県</option>
+                                <option value="大分県">大分県</option>
+                                <option value="宮崎県">宮崎県</option>
+                                <option value="鹿児島県">鹿児島県</option>
+                                <option value="沖縄県">沖縄県</option>
+                            </select>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">市区町村<span class="required">必須</span></label>
+                            <input type="text" id="city" name="city" placeholder="例：千代田区" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">番地・建物名<span class="required">必須</span></label>
+                            <input type="text" id="address" name="address" placeholder="例：1-2-3 ○○マンション101号室" required>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+
+                    <!-- 連絡先 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">連絡先情報</h3>
+                        <div class="form-group">
+                            <label for="email">メールアドレス<span class="required">必須</span></label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email-confirm">メールアドレス（確認用）<span class="required">必須</span></label>
+                            <input type="email" id="email-confirm" name="emailConfirm" placeholder="example@email.com" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">電話番号<span class="required">必須</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="090-1234-5678" maxlength="13" required>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+
+                    <!-- 電気料金明細 -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">電気料金明細</h3>
+                        <div class="form-group">
+                            <label for="bill-upload">電気料金明細の写し<span class="required">必須</span></label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="bill-upload" name="billUpload" accept="image/*,.pdf" required>
+                                <label for="bill-upload" class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>ファイルを選択</span>
+                                </label>
+                                <span class="file-name">選択されていません</span>
+                            </div>
+                            <span class="error-message"></span>
+                            <p class="form-note">※ 画像ファイル（JPG, PNG）またはPDFファイルをアップロードしてください</p>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="history.back()">
+                            戻る
+                        </button>
+                        <button type="submit" class="btn-primary-gradient">
+                            確認画面へ
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 確認画面 -->
+            <div id="application-confirm" class="application-step">
+                <h2 class="section-header">申込内容確認</h2>
+                <div class="confirm-content">
+                    <p class="confirm-message">以下の内容でお申込みを受け付けます。よろしいですか？</p>
+                    
+                    <div class="confirm-section">
+                        <h3 class="confirm-title">お客様情報</h3>
+                        <dl class="confirm-list">
+                            <dt>お名前</dt>
+                            <dd id="confirm-name"></dd>
+                            <dt>お名前カナ</dt>
+                            <dd id="confirm-name-kana"></dd>
+                        </dl>
+                    </div>
+
+                    <div class="confirm-section">
+                        <h3 class="confirm-title">ご住所</h3>
+                        <dl class="confirm-list">
+                            <dt>郵便番号</dt>
+                            <dd id="confirm-postal"></dd>
+                            <dt>住所</dt>
+                            <dd id="confirm-address"></dd>
+                        </dl>
+                    </div>
+
+                    <div class="confirm-section">
+                        <h3 class="confirm-title">連絡先情報</h3>
+                        <dl class="confirm-list">
+                            <dt>メールアドレス</dt>
+                            <dd id="confirm-email"></dd>
+                            <dt>電話番号</dt>
+                            <dd id="confirm-phone"></dd>
+                        </dl>
+                    </div>
+
+                    <div class="confirm-section">
+                        <h3 class="confirm-title">電気料金明細</h3>
+                        <dl class="confirm-list">
+                            <dt>アップロードファイル</dt>
+                            <dd id="confirm-file"></dd>
+                        </dl>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="backToForm()">
+                            修正する
+                        </button>
+                        <button type="button" class="btn-primary-gradient" onclick="submitApplication()">
+                            申込を確定する
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 完了画面 -->
+            <div id="application-complete" class="application-step">
+                <div class="complete-content">
+                    <div class="complete-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="complete-title">お申込みが完了しました</h2>
+                    <p class="complete-message">
+                        お申込みありがとうございます。<br>
+                        ご登録いただいたメールアドレスに確認メールをお送りしました。
+                    </p>
+                    
+                    <div class="complete-info">
+                        <h3>今後の流れ</h3>
+                        <ol class="process-list">
+                            <li>審査完了後、ログイン情報をメールでお送りします（1-2営業日）</li>
+                            <li>マイページから契約手続きを行ってください</li>
+                            <li>切り替え手続き完了後、e.CYCLEのご利用開始となります</li>
+                        </ol>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-primary-gradient" onclick="showSection('home')">
+                            トップページへ戻る
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ボトムナビゲーション -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-section="home">
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+        </button>
+        <button class="nav-item" data-section="simulation">
+            <i class="fas fa-calculator"></i>
+            <span>シミュレーション</span>
+        </button>
+        <button class="nav-item" data-section="billing">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>料金確認</span>
+        </button>
+        <button class="nav-item" data-section="usage">
+            <i class="fas fa-chart-line"></i>
+            <span>使用量</span>
+        </button>
+        <button class="nav-item" data-section="registration">
+            <i class="fas fa-user-circle"></i>
+            <span>登録内容</span>
+        </button>
+        <button class="nav-item" data-section="support">
+            <i class="fas fa-question-circle"></i>
+            <span>サポート</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
